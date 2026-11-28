@@ -1,0 +1,99 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1792615934,
+        "narHash": "sha256-MlvRfa1O5Cqc2/a+gG+l9TSuowEoCKCmrJ1d9oAVm0I=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da6dc0e7b26060f2f71ce3ef7088fb56ee44fa36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da6dc0e7b26060f2f71ce3ef7088fb56ee44fa36",
+        "type": "github"
+      }
+    },
+    "qemu-keycodemapdb": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677604609,
+        "narHash": "sha256-GbZ5mrUYLXMi0IX4IZzles0Oyc095ij2xAsiLNJwfKQ=",
+        "owner": "qemu",
+        "repo": "keycodemapdb",
+        "rev": "f5772a62ec52591ff6870b7e8ef32482371f22c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qemu",
+        "repo": "keycodemapdb",
+        "rev": "f5772a62ec52591ff6870b7e8ef32482371f22c6",
+        "type": "github"
+      }
+    },
+    "qemu-softfloat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1532638343,
+        "narHash": "sha256-Yflpx+mjU8mD5biClNpdmon24EHg4aWBZszbOur5VEA=",
+        "owner": "qemu",
+        "repo": "berkeley-softfloat-3",
+        "rev": "b64af41c3276f97f0e181920400ee056b9c88037",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qemu",
+        "repo": "berkeley-softfloat-3",
+        "rev": "b64af41c3276f97f0e181920400ee056b9c88037",
+        "type": "github"
+      }
+    },
+    "qemu-testfloat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689946593,
+        "narHash": "sha256-inQAeYlmuiRtZm37xK9ypBltCJ+ycyvIeIYZK8a+RYU=",
+        "owner": "qemu",
+        "repo": "berkeley-testfloat-3",
+        "rev": "e7af9751d9f9fd3b47911f51a5cfd08af256a9ab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qemu",
+        "repo": "berkeley-testfloat-3",
+        "rev": "e7af9751d9f9fd3b47911f51a5cfd08af256a9ab",
+        "type": "github"
+      }
+    },
+    "qemu-usb-11-1-3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793186090,
+        "narHash": "sha256-Q5XQqGTszZlXne5dWP8KsLdD8jdQ/N7RrI2iIZBzIOU=",
+        "owner": "ziyifu225",
+        "repo": "qemu",
+        "rev": "005c61c0ef6f6ae615283440b4bb7be51b2c6ddd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ziyifu225",
+        "repo": "qemu",
+        "rev": "005c61c0ef6f6ae615283440b4bb7be51b2c6ddd",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "qemu-keycodemapdb": "qemu-keycodemapdb",
+        "qemu-softfloat": "qemu-softfloat",
+        "qemu-testfloat": "qemu-testfloat",
+        "qemu-usb-11-1-3": "qemu-usb-11-1-3"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

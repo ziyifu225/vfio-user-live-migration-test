@@ -1,0 +1,925 @@
+=== QMP 命令、状态与事件 ===
+[18] [2026-11-27T23:32:38.360520+00:00] [destination] 启动命令：/nix/store/kx1a0ps3vx0p3adpgll6p07qqidz0wf8-qemu-usb-migration-11.1.3/bin/qemu-system-x86_64 -name usb-migration-destination -machine pc-q35-11.1 -accel kvm -cpu host -m 256 -smp 1 -nodefaults -no-user-config -display none -monitor none -nic none -no-reboot -kernel /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/kernel -initrd /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/initrd -append 'console=ttyS0,115200 panic=-1 rdinit=/init nokaslr' -serial file:/tmp/qpd-x0uqtp97/destination.serial.log -qmp unix:/tmp/qpd-x0uqtp97/destination.qmp,server=on,wait=off -D /tmp/qpd-x0uqtp97/destination.trace.log -trace events=/tmp/qpd-x0uqtp97/trace-events -device qemu-xhci,id=xhci,bus=pcie.0,addr=0x5 -device usb-host,id=physical,bus=xhci.0,port=1,hostbus=3,hostport=7.3,vendorid=0x2717,productid=0x5013 -S -incoming defer
+[19] [2026-11-27T23:32:38.361638+00:00] [destination] launch {"pid": 2532243}
+[21] [2026-11-27T23:32:38.512834+00:00] [destination] receive {"QMP": {"version": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "capabilities": ["oob"]}}
+[22] [2026-11-27T23:32:38.513045+00:00] [destination] send {"execute": "qmp_capabilities", "id": 1}
+[23] [2026-11-27T23:32:38.514306+00:00] [destination] receive {"return": {}, "id": 1}
+[24] [2026-11-27T23:32:38.514511+00:00] [destination] send {"execute": "query-version", "id": 2}
+[25] [2026-11-27T23:32:38.515472+00:00] [destination] receive {"return": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "id": 2}
+[26] [2026-11-27T23:32:38.515869+00:00] [destination] send {"execute": "migrate-incoming", "id": 3, "arguments": {"uri": "unix:/tmp/qpd-x0uqtp97/migration.sock"}}
+[27] [2026-11-27T23:32:38.517234+00:00] [destination] receive {"return": {}, "id": 3}
+[56] [2026-11-27T23:32:39.584854+00:00] [destination] send {"execute": "query-migrate", "id": 4}
+[57] [2026-11-27T23:32:39.585716+00:00] [destination] receive {"return": {"status": "completed"}, "id": 4}
+[59] [2026-11-27T23:32:39.585847+00:00] [destination] send {"execute": "query-status", "id": 5}
+[60] [2026-11-27T23:32:39.586553+00:00] [destination] receive {"return": {"status": "paused", "running": false}, "id": 5}
+[61] [2026-11-27T23:32:39.586624+00:00] [destination] send {"execute": "query-migrate", "id": 6}
+[62] [2026-11-27T23:32:39.587374+00:00] [destination] receive {"return": {"status": "completed"}, "id": 6}
+[63] [2026-11-27T23:32:39.587451+00:00] [destination] send {"execute": "human-monitor-command", "id": 7, "arguments": {"command-line": "info usb"}}
+[64] [2026-11-27T23:32:39.588500+00:00] [destination] receive {"return": "  Device 0.1, Port 1, Speed 1.5 Mb/s, Product USB Host Device, ID: physical\r\n", "id": 7}
+[65] [2026-11-27T23:32:39.588591+00:00] [destination] 状态 (before-handoff) {"state": {"status": {"status": "paused", "running": false}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 1.5 Mb/s, Product USB Host Device, ID: physical\r\n"}}
+[70] [2026-11-27T23:32:39.854942+00:00] [destination] send {"execute": "cont", "id": 8}
+[71] [2026-11-27T23:32:39.855957+00:00] [destination] receive {"timestamp": {"seconds": 1795822359, "microseconds": 855617}, "event": "RESUME"}
+[72] [2026-11-27T23:32:39.945881+00:00] [destination] receive {"return": {}, "id": 8}
+[75] [2026-11-27T23:32:42.660725+00:00] [destination] send {"execute": "query-status", "id": 9}
+[76] [2026-11-27T23:32:42.661770+00:00] [destination] receive {"return": {"status": "running", "running": true}, "id": 9}
+[77] [2026-11-27T23:32:42.661861+00:00] [destination] send {"execute": "query-migrate", "id": 10}
+[78] [2026-11-27T23:32:42.662661+00:00] [destination] receive {"return": {"status": "completed"}, "id": 10}
+[79] [2026-11-27T23:32:42.662760+00:00] [destination] send {"execute": "human-monitor-command", "id": 11, "arguments": {"command-line": "info usb"}}
+[80] [2026-11-27T23:32:42.663796+00:00] [destination] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 11}
+[81] [2026-11-27T23:32:42.663897+00:00] [destination] 状态 (after) {"state": {"status": {"status": "running", "running": true}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[82] [2026-11-27T23:32:42.664340+00:00] [destination] send {"execute": "quit", "id": 12}
+[83] [2026-11-27T23:32:42.664945+00:00] [destination] receive {"timestamp": {"seconds": 1795822362, "microseconds": 664799}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+[84] [2026-11-27T23:32:42.665505+00:00] [destination] receive {"return": {}, "id": 12}
+[85] [2026-11-27T23:32:42.930990+00:00] [destination] cleanup {"exit_code": 0}
+
+=== USB 与迁移 trace ===
+usb_port_claim bus 0, port 1
+usb_host_auto_scan_enabled 
+migrate_set_state new state setup
+migrate_set_state new state active
+vmstate_load_state configuration v0
+qemu_loadvm_state_section_startfull 1(ram) 0 4
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+vmstate_load ram, (old)
+qemu_loadvm_state_section_startfull 6(apic) 0 3
+vmstate_load apic, apic
+vmstate_load_state apic v3
+qemu_loadvm_state_section_startfull 0(timer) 0 2
+vmstate_load timer, timer
+vmstate_load_state timer v2
+qemu_loadvm_state_section_startfull 3(cpu_common) 0 1
+vmstate_load cpu_common, cpu_common
+vmstate_load_state cpu_common v1
+qemu_loadvm_state_section_startfull 4(cpu) 0 12
+vmstate_load cpu, cpu
+vmstate_load_state cpu v12
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state fpreg v0
+vmstate_load_state fpreg_tmp v0
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state segment v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state xmm_reg v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state mtrr_var v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state ymmh_reg v1
+vmstate_load_state cpu/async_pf_msr v1
+vmstate_load_state cpu/async_pf_int_msr v1
+vmstate_load_state cpu/async_pv_eoi_msr v1
+vmstate_load_state cpu/steal_time_msr v1
+vmstate_load_state cpu/msr_tscdeadline v1
+vmstate_load_state cpu/msr_ia32_feature_control v1
+vmstate_load_state cpu/xss v1
+vmstate_load_state cpu/umwait v1
+vmstate_load_state cpu/tsc_khz v1
+vmstate_load_state cpu/msr_smi_count v1
+vmstate_load_state cpu/pkru v1
+vmstate_load_state cpu/spec_ctrl v1
+vmstate_load_state cpu/mcg_ext_ctl v1
+vmstate_load_state cpu/cet v1
+vmstate_load_state cpu/cet_shstk v1
+qemu_loadvm_state_section_startfull 5(kvm-tpr-opt) 0 1
+vmstate_load kvm-tpr-opt, kvm-tpr-opt
+vmstate_load_state kvm-tpr-opt v1
+vmstate_load_state kvmvapic-guest-rom v1
+vmstate_load_state kvmvapic-handlers v1
+vmstate_load_state kvmvapic-handlers v1
+qemu_loadvm_state_section_startfull 7(kvmclock) 0 1
+vmstate_load kvmclock, kvmclock
+vmstate_load_state kvmclock v1
+vmstate_load_state kvmclock/clock_is_reliable v1
+qemu_loadvm_state_section_startfull 8(fw_cfg) 0 2
+vmstate_load fw_cfg, fw_cfg
+vmstate_load_state fw_cfg v2
+vmstate_load_state fw_cfg/dma v0
+vmstate_load_state fw_cfg/acpi_mr v1
+qemu_loadvm_state_section_startfull 9(0000:00:00.0/mch) 0 1
+vmstate_load 0000:00:00.0/mch, mch
+vmstate_load_state mch v1
+vmstate_load_state PCIDevice v2
+qemu_loadvm_state_section_startfull 10(PCIHost) 0 1
+vmstate_load PCIHost, PCIHost
+vmstate_load_state PCIHost v1
+qemu_loadvm_state_section_startfull 11(PCIBUS) 0 1
+vmstate_load PCIBUS, PCIBUS
+vmstate_load_state PCIBUS v1
+qemu_loadvm_state_section_startfull 12(dma) 0 1
+vmstate_load dma, dma
+vmstate_load_state dma v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+qemu_loadvm_state_section_startfull 13(dma) 1 1
+vmstate_load dma, dma
+vmstate_load_state dma v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+vmstate_load_state dma_regs v1
+qemu_loadvm_state_section_startfull 14(mc146818rtc) 0 3
+vmstate_load mc146818rtc, mc146818rtc
+vmstate_load_state mc146818rtc v3
+qemu_loadvm_state_section_startfull 15(0000:00:1f.0/ICH9LPC) 0 1
+vmstate_load 0000:00:1f.0/ICH9LPC, ICH9LPC
+vmstate_load_state ICH9LPC v1
+vmstate_load_state PCIDevice v2
+vmstate_load_state APM State v1
+vmstate_load_state ich9_pm v1
+vmstate_load_state ich9_pm/memhp v1
+vmstate_load_state memory hotplug state v1
+vmstate_load_state ich9_pm/tco v1
+vmstate_load_state tco io device status v1
+vmstate_load_state ich9_pm/cpuhp v1
+vmstate_load_state CPU hotplug state v1
+vmstate_load_state CPU hotplug device state v1
+vmstate_load_state ich9_pm/pcihp v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+vmstate_load_state acpi_pcihp_pci_status v1
+qemu_loadvm_state_section_startfull 16(i8259) 0 1
+vmstate_load i8259, i8259
+vmstate_load_state i8259 v1
+qemu_loadvm_state_section_startfull 17(i8259) 1 1
+vmstate_load i8259, i8259
+vmstate_load_state i8259 v1
+qemu_loadvm_state_section_startfull 18(ioapic) 0 3
+vmstate_load ioapic, ioapic
+vmstate_load_state ioapic v3
+qemu_loadvm_state_section_startfull 19(hpet) 0 2
+vmstate_load hpet, hpet
+vmstate_load_state hpet v2
+vmstate_load_state hpet_timer v1
+vmstate_load_state hpet_timer v1
+vmstate_load_state hpet_timer v1
+vmstate_load_state hpet/offset v1
+qemu_loadvm_state_section_startfull 20(i8254) 0 3
+vmstate_load i8254, i8254
+vmstate_load_state i8254 v3
+vmstate_load_state pit channel v2
+vmstate_load_state pit channel v2
+vmstate_load_state pit channel v2
+qemu_loadvm_state_section_startfull 21(pcspk) 0 1
+vmstate_load pcspk, pcspk
+vmstate_load_state pcspk v1
+qemu_loadvm_state_section_startfull 22(serial) 0 3
+vmstate_load serial, serial
+vmstate_load_state serial v3
+vmstate_load_state serial v3
+qemu_loadvm_state_section_startfull 23(ps2kbd) 0 3
+vmstate_load ps2kbd, ps2kbd
+vmstate_load_state ps2kbd v3
+vmstate_load_state PS2 Common State v3
+qemu_loadvm_state_section_startfull 24(ps2mouse) 0 2
+vmstate_load ps2mouse, ps2mouse
+vmstate_load_state ps2mouse v2
+vmstate_load_state PS2 Common State v3
+qemu_loadvm_state_section_startfull 25(pckbd) 0 3
+vmstate_load pckbd, pckbd
+vmstate_load_state pckbd v3
+vmstate_load_state pckbd v3
+vmstate_load_state pckbd/extended_state v0
+qemu_loadvm_state_section_startfull 26(vmmouse) 0 0
+vmstate_load vmmouse, vmmouse
+vmstate_load_state vmmouse v0
+qemu_loadvm_state_section_startfull 27(port92) 0 1
+vmstate_load port92, port92
+vmstate_load_state port92 v1
+qemu_loadvm_state_section_startfull 28(0000:00:1f.2/ich9_ahci) 0 1
+vmstate_load 0000:00:1f.2/ich9_ahci, ich9_ahci
+vmstate_load_state ich9_ahci v1
+vmstate_load_state PCIDevice v2
+vmstate_load_state ahci v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ahci port v1
+vmstate_load_state ide_bus v1
+vmstate_load_state ide_drive v3
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+vmstate_load_state ncq state v1
+qemu_loadvm_state_section_startfull 29(i2c_bus) 0 1
+vmstate_load i2c_bus, i2c_bus
+vmstate_load_state i2c_bus v1
+qemu_loadvm_state_section_startfull 30(0000:00:1f.3/ich9_smb) 0 1
+vmstate_load 0000:00:1f.3/ich9_smb, ich9_smb
+vmstate_load_state ich9_smb v1
+vmstate_load_state PCIDevice v2
+vmstate_load_state pmsmb v1
+qemu_loadvm_state_section_startfull 39(0000:00:05.0/xhci) 0 1
+vmstate_load 0000:00:05.0/xhci, xhci
+vmstate_load_state xhci v1
+vmstate_load_state PCIDevice v2
+vmstate_load_state msix v0
+vmstate_load_state xhci-core v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-port v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-slot v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-intr v1
+vmstate_load_state xhci-ring v1
+qemu_loadvm_state_section_startfull 40(0000:00:05.0/1/usb-host) 0 1
+vmstate_load 0000:00:05.0/1/usb-host, usb-host
+vmstate_load_state usb-host v1
+vmstate_load_state USBDevice v1
+qemu_loadvm_state_section_startfull 41(acpi_build) 0 1
+vmstate_load acpi_build, acpi_build
+vmstate_load_state acpi_build v1
+qemu_loadvm_state_section_startfull 42(globalstate) 0 1
+vmstate_load globalstate, globalstate
+vmstate_load_state globalstate v1
+migrate_set_state new state completed
+usb_port_detach bus 0, port 1
+usb_host_open_started dev 3:83
+usb_host_detach_kernel dev 3:83, if 0
+usb_host_parse_config dev 3:83, value 1, active 1
+usb_host_parse_interface dev 3:83, num 0, alt 0, active 1
+usb_host_parse_endpoint dev 3:83, ep 2, in, int, active 1
+usb_port_attach bus 0, port 1, devspeed full, portspeed full+high+super
+usb_host_open_success dev 3:83
+usb_host_reset dev 3:83
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 256, index 0
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 18
+usb_host_req_control dev 3:83, packet 0x7dfaebdfe610, req 0x5, value 1, index 0
+usb_host_set_address dev 3:83, address 1
+usb_host_req_emulated dev 3:83, packet 0x7dfaebdfe610, status 0
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 256, index 0
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 18
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 9
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 34
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 768, index 0
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 4
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 770, index 1033
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 38
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8006, value 769, index 1033
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 16
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x9, value 1, index 0
+usb_host_set_config dev 3:83, config 1
+usb_host_claim_interface dev 3:83, config 1, if 0
+usb_host_parse_config dev 3:83, value 1, active 1
+usb_host_parse_interface dev 3:83, num 0, alt 0, active 1
+usb_host_parse_endpoint dev 3:83, ep 2, in, int, active 1
+usb_host_req_emulated dev 3:83, packet 0x7dfae4000c28, status 0
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x210a, value 0, index 0
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 0
+usb_host_req_control dev 3:83, packet 0x7dfae4000c28, req 0x8106, value 8704, index 0
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status 0, length 142
+usb_host_req_data dev 3:83, packet 0x7dfae4000c28, in 1, ep 2, size 5
+usb_host_req_complete dev 3:83, packet 0x7dfae4000c28, status -1, length 0
+usb_host_release_interface dev 3:83, if 0
+usb_host_attach_kernel dev 3:83, if 0
+usb_host_attach_kernel dev 3:83, if 1
+usb_host_attach_kernel dev 3:83, if 2
+usb_host_attach_kernel dev 3:83, if 3
+usb_host_attach_kernel dev 3:83, if 4
+usb_host_attach_kernel dev 3:83, if 5
+usb_host_attach_kernel dev 3:83, if 6
+usb_host_attach_kernel dev 3:83, if 7
+usb_host_attach_kernel dev 3:83, if 8
+usb_host_attach_kernel dev 3:83, if 9
+usb_host_attach_kernel dev 3:83, if 10
+usb_host_attach_kernel dev 3:83, if 11
+usb_host_attach_kernel dev 3:83, if 12
+usb_host_attach_kernel dev 3:83, if 13
+usb_host_attach_kernel dev 3:83, if 14
+usb_host_attach_kernel dev 3:83, if 15
+
+=== QEMU / libusb 诊断 ===
+
+=== guest 内核与 USB 枚举 ===
+[    3.364340] usb 1-1: USB disconnect, device number 2
+[    3.647010] clocksource: timekeeping watchdog on CPU0: Marking clocksource 'tsc' as unstable because the skew is too large:
+[    3.650784] clocksource:                       'kvm-clock' wd_nsec: 503997877 wd_now: f179c9b7 wd_last: d36f6402 mask: ffffffffffffffff
+[    3.654733] clocksource:                       'tsc' cs_nsec: 790657455 cs_now: 28ba5c90a cs_last: 21604dad2 mask: ffffffffffffffff
+[    3.656225] clocksource:                       Clocksource 'tsc' skewed 286659578 ns (286 ms) over watchdog 'kvm-clock' interval of 503997877 ns (503 ms)
+[    3.657914] clocksource:                       'kvm-clock' (not 'tsc') is current clocksource.
+[    3.658993] tsc: Marking TSC unstable due to clocksource watchdog
+[    3.751906] usb 1-1: new full-speed USB device number 3 using xhci_hcd
+[    3.886010] usb 1-1: New USB device found, idVendor=2717, idProduct=5013, bcdDevice= 1.00
+[    3.887458] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    3.888585] usb 1-1: Product: Mi Wireless Mouse
+[    3.889273] usb 1-1: Manufacturer: XiaoMi
+[    3.894892] input: XiaoMi Mi Wireless Mouse as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0002/input/input3
+[    3.896863] input: XiaoMi Mi Wireless Mouse Consumer Control as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0002/input/input4
+[    3.949287] input: XiaoMi Mi Wireless Mouse System Control as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0002/input/input5
+[    3.962639] hid-generic 0003:2717:5013.0002: input,hidraw0: USB HID v1.11 Mouse [XiaoMi Mi Wireless Mouse] on usb-0000:00:05.0-1/input0
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=3
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=3 vid=2717 pid=5013 devnum=3 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=3 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=3 vid=1d6b pid=0003 devnum=1 config=1
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=4
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=4 vid=2717 pid=5013 devnum=3 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=4 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=4 vid=1d6b pid=0003 devnum=1 config=1
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=5
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=5 vid=2717 pid=5013 devnum=3 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=5 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=5 vid=1d6b pid=0003 devnum=1 config=1

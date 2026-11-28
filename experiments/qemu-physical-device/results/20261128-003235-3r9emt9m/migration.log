@@ -1,0 +1,85 @@
+[1] [2026-11-27T23:32:35.782039+00:00] [controller] QEMU 11.1.3 commit=005c61c0ef6f6ae615283440b4bb7be51b2c6ddd; USB={"port": "3-7.3", "bus": 3, "address": 83, "hostport": "7.3", "vid": "2717", "pid": "5013", "serial": "", "product": "Mi Wireless Mouse", "class": "00", "sysfs": "/sys/devices/pci0000:00/0000:00:14.0/usb3/3-7/3-7.3", "node": "/dev/bus/usb/003/083"}
+[2] [2026-11-27T23:32:35.782692+00:00] [source] 启动命令：/nix/store/kx1a0ps3vx0p3adpgll6p07qqidz0wf8-qemu-usb-migration-11.1.3/bin/qemu-system-x86_64 -name usb-migration-source -machine pc-q35-11.1 -accel kvm -cpu host -m 256 -smp 1 -nodefaults -no-user-config -display none -monitor none -nic none -no-reboot -kernel /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/kernel -initrd /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/initrd -append 'console=ttyS0,115200 panic=-1 rdinit=/init nokaslr' -serial file:/tmp/qpd-x0uqtp97/source.serial.log -qmp unix:/tmp/qpd-x0uqtp97/source.qmp,server=on,wait=off -D /tmp/qpd-x0uqtp97/source.trace.log -trace events=/tmp/qpd-x0uqtp97/trace-events -device qemu-xhci,id=xhci,bus=pcie.0,addr=0x5 -device usb-host,id=physical,bus=xhci.0,port=1,hostbus=3,hostport=7.3,vendorid=0x2717,productid=0x5013
+[3] [2026-11-27T23:32:35.783155+00:00] [source] launch {"pid": 2532225}
+[4] [2026-11-27T23:32:35.933456+00:00] [controller] source QMP available
+[5] [2026-11-27T23:32:35.933924+00:00] [source] receive {"QMP": {"version": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "capabilities": ["oob"]}}
+[6] [2026-11-27T23:32:35.934008+00:00] [source] send {"execute": "qmp_capabilities", "id": 1}
+[7] [2026-11-27T23:32:35.944999+00:00] [source] receive {"return": {}, "id": 1}
+[8] [2026-11-27T23:32:35.945137+00:00] [source] send {"execute": "query-version", "id": 2}
+[9] [2026-11-27T23:32:35.945961+00:00] [source] receive {"return": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "id": 2}
+[10] [2026-11-27T23:32:38.356334+00:00] [controller] source guest configured USB device
+[11] [2026-11-27T23:32:38.356624+00:00] [source] send {"execute": "query-status", "id": 3}
+[12] [2026-11-27T23:32:38.357759+00:00] [source] receive {"return": {"status": "running", "running": true}, "id": 3}
+[13] [2026-11-27T23:32:38.357905+00:00] [source] send {"execute": "query-migrate", "id": 4}
+[14] [2026-11-27T23:32:38.358753+00:00] [source] receive {"return": {}, "id": 4}
+[15] [2026-11-27T23:32:38.358855+00:00] [source] send {"execute": "human-monitor-command", "id": 5, "arguments": {"command-line": "info usb"}}
+[16] [2026-11-27T23:32:38.360036+00:00] [source] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 5}
+[17] [2026-11-27T23:32:38.360129+00:00] [source] 状态 (before) {"state": {"status": {"status": "running", "running": true}, "migration": {}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[18] [2026-11-27T23:32:38.360520+00:00] [destination] 启动命令：/nix/store/kx1a0ps3vx0p3adpgll6p07qqidz0wf8-qemu-usb-migration-11.1.3/bin/qemu-system-x86_64 -name usb-migration-destination -machine pc-q35-11.1 -accel kvm -cpu host -m 256 -smp 1 -nodefaults -no-user-config -display none -monitor none -nic none -no-reboot -kernel /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/kernel -initrd /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/initrd -append 'console=ttyS0,115200 panic=-1 rdinit=/init nokaslr' -serial file:/tmp/qpd-x0uqtp97/destination.serial.log -qmp unix:/tmp/qpd-x0uqtp97/destination.qmp,server=on,wait=off -D /tmp/qpd-x0uqtp97/destination.trace.log -trace events=/tmp/qpd-x0uqtp97/trace-events -device qemu-xhci,id=xhci,bus=pcie.0,addr=0x5 -device usb-host,id=physical,bus=xhci.0,port=1,hostbus=3,hostport=7.3,vendorid=0x2717,productid=0x5013 -S -incoming defer
+[19] [2026-11-27T23:32:38.361638+00:00] [destination] launch {"pid": 2532243}
+[20] [2026-11-27T23:32:38.512082+00:00] [controller] destination QMP available
+[21] [2026-11-27T23:32:38.512834+00:00] [destination] receive {"QMP": {"version": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "capabilities": ["oob"]}}
+[22] [2026-11-27T23:32:38.513045+00:00] [destination] send {"execute": "qmp_capabilities", "id": 1}
+[23] [2026-11-27T23:32:38.514306+00:00] [destination] receive {"return": {}, "id": 1}
+[24] [2026-11-27T23:32:38.514511+00:00] [destination] send {"execute": "query-version", "id": 2}
+[25] [2026-11-27T23:32:38.515472+00:00] [destination] receive {"return": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "id": 2}
+[26] [2026-11-27T23:32:38.515869+00:00] [destination] send {"execute": "migrate-incoming", "id": 3, "arguments": {"uri": "unix:/tmp/qpd-x0uqtp97/migration.sock"}}
+[27] [2026-11-27T23:32:38.517234+00:00] [destination] receive {"return": {}, "id": 3}
+[28] [2026-11-27T23:32:38.517437+00:00] [controller] migration listener ready
+[29] [2026-11-27T23:32:38.517461+00:00] [source] send {"execute": "migrate", "id": 6, "arguments": {"uri": "unix:/tmp/qpd-x0uqtp97/migration.sock"}}
+[30] [2026-11-27T23:32:38.518923+00:00] [source] receive {"return": {}, "id": 6}
+[31] [2026-11-27T23:32:38.519022+00:00] [source] send {"execute": "query-migrate", "id": 7}
+[32] [2026-11-27T23:32:38.520750+00:00] [source] receive {"return": {"status": "active"}, "id": 7}
+[33] [2026-11-27T23:32:38.671116+00:00] [source] send {"execute": "query-migrate", "id": 8}
+[34] [2026-11-27T23:32:38.672388+00:00] [source] receive {"return": {"status": "active"}, "id": 8}
+[35] [2026-11-27T23:32:38.822785+00:00] [source] send {"execute": "query-migrate", "id": 9}
+[36] [2026-11-27T23:32:38.824086+00:00] [source] receive {"return": {"status": "active"}, "id": 9}
+[37] [2026-11-27T23:32:38.974454+00:00] [source] send {"execute": "query-migrate", "id": 10}
+[38] [2026-11-27T23:32:38.975639+00:00] [source] receive {"return": {"status": "active"}, "id": 10}
+[39] [2026-11-27T23:32:39.125898+00:00] [source] send {"execute": "query-migrate", "id": 11}
+[40] [2026-11-27T23:32:39.126965+00:00] [source] receive {"return": {"status": "active"}, "id": 11}
+[41] [2026-11-27T23:32:39.277372+00:00] [source] send {"execute": "query-migrate", "id": 12}
+[42] [2026-11-27T23:32:39.278879+00:00] [source] receive {"return": {"status": "active"}, "id": 12}
+[43] [2026-11-27T23:32:39.429269+00:00] [source] send {"execute": "query-migrate", "id": 13}
+[44] [2026-11-27T23:32:39.430247+00:00] [source] receive {"return": {"status": "active"}, "id": 13}
+[45] [2026-11-27T23:32:39.580624+00:00] [source] send {"execute": "query-migrate", "id": 14}
+[46] [2026-11-27T23:32:39.580870+00:00] [source] receive {"timestamp": {"seconds": 1795822359, "microseconds": 520952}, "event": "STOP"}
+[47] [2026-11-27T23:32:39.581759+00:00] [source] receive {"return": {"status": "completed"}, "id": 14}
+[48] [2026-11-27T23:32:39.581875+00:00] [controller] VM migration completed
+[49] [2026-11-27T23:32:39.581919+00:00] [source] send {"execute": "query-status", "id": 15}
+[50] [2026-11-27T23:32:39.582685+00:00] [source] receive {"return": {"status": "postmigrate", "running": false}, "id": 15}
+[51] [2026-11-27T23:32:39.582778+00:00] [source] send {"execute": "query-migrate", "id": 16}
+[52] [2026-11-27T23:32:39.583536+00:00] [source] receive {"return": {"status": "completed"}, "id": 16}
+[53] [2026-11-27T23:32:39.583620+00:00] [source] send {"execute": "human-monitor-command", "id": 17, "arguments": {"command-line": "info usb"}}
+[54] [2026-11-27T23:32:39.584688+00:00] [source] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 17}
+[55] [2026-11-27T23:32:39.584768+00:00] [source] 状态 (after-migration) {"state": {"status": {"status": "postmigrate", "running": false}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[56] [2026-11-27T23:32:39.584854+00:00] [destination] send {"execute": "query-migrate", "id": 4}
+[57] [2026-11-27T23:32:39.585716+00:00] [destination] receive {"return": {"status": "completed"}, "id": 4}
+[58] [2026-11-27T23:32:39.585810+00:00] [controller] destination received migration
+[59] [2026-11-27T23:32:39.585847+00:00] [destination] send {"execute": "query-status", "id": 5}
+[60] [2026-11-27T23:32:39.586553+00:00] [destination] receive {"return": {"status": "paused", "running": false}, "id": 5}
+[61] [2026-11-27T23:32:39.586624+00:00] [destination] send {"execute": "query-migrate", "id": 6}
+[62] [2026-11-27T23:32:39.587374+00:00] [destination] receive {"return": {"status": "completed"}, "id": 6}
+[63] [2026-11-27T23:32:39.587451+00:00] [destination] send {"execute": "human-monitor-command", "id": 7, "arguments": {"command-line": "info usb"}}
+[64] [2026-11-27T23:32:39.588500+00:00] [destination] receive {"return": "  Device 0.1, Port 1, Speed 1.5 Mb/s, Product USB Host Device, ID: physical\r\n", "id": 7}
+[65] [2026-11-27T23:32:39.588591+00:00] [destination] 状态 (before-handoff) {"state": {"status": {"status": "paused", "running": false}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 1.5 Mb/s, Product USB Host Device, ID: physical\r\n"}}
+[66] [2026-11-27T23:32:39.588834+00:00] [source] send {"execute": "quit", "id": 18}
+[67] [2026-11-27T23:32:39.589519+00:00] [source] receive {"timestamp": {"seconds": 1795822359, "microseconds": 589370}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+[68] [2026-11-27T23:32:39.589637+00:00] [source] receive {"return": {}, "id": 18}
+[69] [2026-11-27T23:32:39.854823+00:00] [controller] source exited; physical device released
+[70] [2026-11-27T23:32:39.854942+00:00] [destination] send {"execute": "cont", "id": 8}
+[71] [2026-11-27T23:32:39.855957+00:00] [destination] receive {"timestamp": {"seconds": 1795822359, "microseconds": 855617}, "event": "RESUME"}
+[72] [2026-11-27T23:32:39.945881+00:00] [destination] receive {"return": {}, "id": 8}
+[73] [2026-11-27T23:32:40.700308+00:00] [controller] destination guest configured USB device
+[74] [2026-11-27T23:32:42.660651+00:00] [controller] destination guest continues running
+[75] [2026-11-27T23:32:42.660725+00:00] [destination] send {"execute": "query-status", "id": 9}
+[76] [2026-11-27T23:32:42.661770+00:00] [destination] receive {"return": {"status": "running", "running": true}, "id": 9}
+[77] [2026-11-27T23:32:42.661861+00:00] [destination] send {"execute": "query-migrate", "id": 10}
+[78] [2026-11-27T23:32:42.662661+00:00] [destination] receive {"return": {"status": "completed"}, "id": 10}
+[79] [2026-11-27T23:32:42.662760+00:00] [destination] send {"execute": "human-monitor-command", "id": 11, "arguments": {"command-line": "info usb"}}
+[80] [2026-11-27T23:32:42.663796+00:00] [destination] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 11}
+[81] [2026-11-27T23:32:42.663897+00:00] [destination] 状态 (after) {"state": {"status": {"status": "running", "running": true}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[82] [2026-11-27T23:32:42.664340+00:00] [destination] send {"execute": "quit", "id": 12}
+[83] [2026-11-27T23:32:42.664945+00:00] [destination] receive {"timestamp": {"seconds": 1795822362, "microseconds": 664799}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+[84] [2026-11-27T23:32:42.665505+00:00] [destination] receive {"return": {}, "id": 12}
+[85] [2026-11-27T23:32:42.930990+00:00] [destination] cleanup {"exit_code": 0}

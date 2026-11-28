@@ -1,0 +1,548 @@
+=== QMP 命令、状态与事件 ===
+[2] [2026-11-27T23:32:35.782692+00:00] [source] 启动命令：/nix/store/kx1a0ps3vx0p3adpgll6p07qqidz0wf8-qemu-usb-migration-11.1.3/bin/qemu-system-x86_64 -name usb-migration-source -machine pc-q35-11.1 -accel kvm -cpu host -m 256 -smp 1 -nodefaults -no-user-config -display none -monitor none -nic none -no-reboot -kernel /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/kernel -initrd /nix/store/sw83winhqnkwzfwvb60pj81hd3ss19ad-usb-migration-guest/initrd -append 'console=ttyS0,115200 panic=-1 rdinit=/init nokaslr' -serial file:/tmp/qpd-x0uqtp97/source.serial.log -qmp unix:/tmp/qpd-x0uqtp97/source.qmp,server=on,wait=off -D /tmp/qpd-x0uqtp97/source.trace.log -trace events=/tmp/qpd-x0uqtp97/trace-events -device qemu-xhci,id=xhci,bus=pcie.0,addr=0x5 -device usb-host,id=physical,bus=xhci.0,port=1,hostbus=3,hostport=7.3,vendorid=0x2717,productid=0x5013
+[3] [2026-11-27T23:32:35.783155+00:00] [source] launch {"pid": 2532225}
+[5] [2026-11-27T23:32:35.933924+00:00] [source] receive {"QMP": {"version": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "capabilities": ["oob"]}}
+[6] [2026-11-27T23:32:35.934008+00:00] [source] send {"execute": "qmp_capabilities", "id": 1}
+[7] [2026-11-27T23:32:35.944999+00:00] [source] receive {"return": {}, "id": 1}
+[8] [2026-11-27T23:32:35.945137+00:00] [source] send {"execute": "query-version", "id": 2}
+[9] [2026-11-27T23:32:35.945961+00:00] [source] receive {"return": {"qemu": {"micro": 3, "minor": 1, "major": 11}, "package": ""}, "id": 2}
+[11] [2026-11-27T23:32:38.356624+00:00] [source] send {"execute": "query-status", "id": 3}
+[12] [2026-11-27T23:32:38.357759+00:00] [source] receive {"return": {"status": "running", "running": true}, "id": 3}
+[13] [2026-11-27T23:32:38.357905+00:00] [source] send {"execute": "query-migrate", "id": 4}
+[14] [2026-11-27T23:32:38.358753+00:00] [source] receive {"return": {}, "id": 4}
+[15] [2026-11-27T23:32:38.358855+00:00] [source] send {"execute": "human-monitor-command", "id": 5, "arguments": {"command-line": "info usb"}}
+[16] [2026-11-27T23:32:38.360036+00:00] [source] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 5}
+[17] [2026-11-27T23:32:38.360129+00:00] [source] 状态 (before) {"state": {"status": {"status": "running", "running": true}, "migration": {}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[29] [2026-11-27T23:32:38.517461+00:00] [source] send {"execute": "migrate", "id": 6, "arguments": {"uri": "unix:/tmp/qpd-x0uqtp97/migration.sock"}}
+[30] [2026-11-27T23:32:38.518923+00:00] [source] receive {"return": {}, "id": 6}
+[31] [2026-11-27T23:32:38.519022+00:00] [source] send {"execute": "query-migrate", "id": 7}
+[32] [2026-11-27T23:32:38.520750+00:00] [source] receive {"return": {"status": "active"}, "id": 7}
+[33] [2026-11-27T23:32:38.671116+00:00] [source] send {"execute": "query-migrate", "id": 8}
+[34] [2026-11-27T23:32:38.672388+00:00] [source] receive {"return": {"status": "active"}, "id": 8}
+[35] [2026-11-27T23:32:38.822785+00:00] [source] send {"execute": "query-migrate", "id": 9}
+[36] [2026-11-27T23:32:38.824086+00:00] [source] receive {"return": {"status": "active"}, "id": 9}
+[37] [2026-11-27T23:32:38.974454+00:00] [source] send {"execute": "query-migrate", "id": 10}
+[38] [2026-11-27T23:32:38.975639+00:00] [source] receive {"return": {"status": "active"}, "id": 10}
+[39] [2026-11-27T23:32:39.125898+00:00] [source] send {"execute": "query-migrate", "id": 11}
+[40] [2026-11-27T23:32:39.126965+00:00] [source] receive {"return": {"status": "active"}, "id": 11}
+[41] [2026-11-27T23:32:39.277372+00:00] [source] send {"execute": "query-migrate", "id": 12}
+[42] [2026-11-27T23:32:39.278879+00:00] [source] receive {"return": {"status": "active"}, "id": 12}
+[43] [2026-11-27T23:32:39.429269+00:00] [source] send {"execute": "query-migrate", "id": 13}
+[44] [2026-11-27T23:32:39.430247+00:00] [source] receive {"return": {"status": "active"}, "id": 13}
+[45] [2026-11-27T23:32:39.580624+00:00] [source] send {"execute": "query-migrate", "id": 14}
+[46] [2026-11-27T23:32:39.580870+00:00] [source] receive {"timestamp": {"seconds": 1795822359, "microseconds": 520952}, "event": "STOP"}
+[47] [2026-11-27T23:32:39.581759+00:00] [source] receive {"return": {"status": "completed"}, "id": 14}
+[49] [2026-11-27T23:32:39.581919+00:00] [source] send {"execute": "query-status", "id": 15}
+[50] [2026-11-27T23:32:39.582685+00:00] [source] receive {"return": {"status": "postmigrate", "running": false}, "id": 15}
+[51] [2026-11-27T23:32:39.582778+00:00] [source] send {"execute": "query-migrate", "id": 16}
+[52] [2026-11-27T23:32:39.583536+00:00] [source] receive {"return": {"status": "completed"}, "id": 16}
+[53] [2026-11-27T23:32:39.583620+00:00] [source] send {"execute": "human-monitor-command", "id": 17, "arguments": {"command-line": "info usb"}}
+[54] [2026-11-27T23:32:39.584688+00:00] [source] receive {"return": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n", "id": 17}
+[55] [2026-11-27T23:32:39.584768+00:00] [source] 状态 (after-migration) {"state": {"status": {"status": "postmigrate", "running": false}, "migration": {"status": "completed"}, "usb": "  Device 0.1, Port 1, Speed 12 Mb/s, Product Mi Wireless Mouse, ID: physical\r\n"}}
+[66] [2026-11-27T23:32:39.588834+00:00] [source] send {"execute": "quit", "id": 18}
+[67] [2026-11-27T23:32:39.589519+00:00] [source] receive {"timestamp": {"seconds": 1795822359, "microseconds": 589370}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+[68] [2026-11-27T23:32:39.589637+00:00] [source] receive {"return": {}, "id": 18}
+
+=== USB 与迁移 trace ===
+usb_port_claim bus 0, port 1
+usb_host_auto_scan_enabled 
+usb_host_open_started dev 3:83
+usb_host_detach_kernel dev 3:83, if 0
+usb_host_parse_config dev 3:83, value 1, active 1
+usb_host_parse_interface dev 3:83, num 0, alt 0, active 1
+usb_host_parse_endpoint dev 3:83, ep 2, in, int, active 1
+usb_port_attach bus 0, port 1, devspeed full, portspeed full+high+super
+usb_host_open_success dev 3:83
+usb_host_req_control dev 3:83, packet 0x7d1004b35610, req 0x5, value 1, index 0
+usb_host_set_address dev 3:83, address 1
+usb_host_req_emulated dev 3:83, packet 0x7d1004b35610, status 0
+usb_host_req_control dev 3:83, packet 0x7d0fe83485e8, req 0x8006, value 256, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe83485e8, status 0, length 8
+usb_host_req_control dev 3:83, packet 0x7d0fe8343608, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7d0fe8343608, status 0, length 9
+usb_host_req_control dev 3:83, packet 0x7d0fe8342928, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7d0fe8342928, status 0, length 34
+usb_host_req_control dev 3:83, packet 0x7d0fe8342a38, req 0x9, value 1, index 0
+usb_host_set_config dev 3:83, config 1
+usb_host_claim_interface dev 3:83, config 1, if 0
+usb_host_parse_config dev 3:83, value 1, active 1
+usb_host_parse_interface dev 3:83, num 0, alt 0, active 1
+usb_host_parse_endpoint dev 3:83, ep 2, in, int, active 1
+usb_host_req_emulated dev 3:83, packet 0x7d0fe8342a38, status 0
+usb_host_req_control dev 3:83, packet 0x7d0fe8342a38, req 0x210b, value 0, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe8342a38, status 0, length 0
+usb_host_req_data dev 3:83, packet 0x7d0fe8311d28, in 1, ep 2, size 8
+usb_host_req_canceled dev 3:83, packet 0x7d0fe8311d28
+usb_host_reset dev 3:83
+usb_host_req_control dev 3:83, packet 0x7d0fe8311d28, req 0x8006, value 256, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe8311d28, status 0, length 18
+usb_host_req_control dev 3:83, packet 0x7d1004b35610, req 0x5, value 1, index 0
+usb_host_set_address dev 3:83, address 1
+usb_host_req_emulated dev 3:83, packet 0x7d1004b35610, status 0
+usb_host_req_control dev 3:83, packet 0x7d0fe830cac8, req 0x8006, value 256, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe830cac8, status 0, length 18
+usb_host_req_control dev 3:83, packet 0x7d0fe830dce8, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7d0fe830dce8, status 0, length 9
+usb_host_req_control dev 3:83, packet 0x7d0fe830c338, req 0x8006, value 512, index 0
+usb_host_remote_wakeup_removed dev 3:83
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c338, status 0, length 34
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x8006, value 768, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status 0, length 4
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x8006, value 770, index 1033
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status 0, length 38
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x8006, value 769, index 1033
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status 0, length 16
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x9, value 1, index 0
+usb_host_set_config dev 3:83, config 1
+usb_host_release_interface dev 3:83, if 0
+usb_host_claim_interface dev 3:83, config 1, if 0
+usb_host_parse_config dev 3:83, value 1, active 1
+usb_host_parse_interface dev 3:83, num 0, alt 0, active 1
+usb_host_parse_endpoint dev 3:83, ep 2, in, int, active 1
+usb_host_req_emulated dev 3:83, packet 0x7d0fe830c628, status 0
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x210a, value 0, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status 0, length 0
+usb_host_req_control dev 3:83, packet 0x7d0fe830c628, req 0x8106, value 8704, index 0
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status 0, length 142
+usb_host_req_data dev 3:83, packet 0x7d0fe830c628, in 1, ep 2, size 5
+migrate_set_state new state setup
+migrate_set_state new state active
+migrate_set_state new state device
+vmstate_save apic, apic
+vmstate_save timer, timer
+vmstate_save cpu_common, cpu_common
+vmstate_save cpu, cpu
+vmstate_save kvm-tpr-opt, kvm-tpr-opt
+vmstate_save kvmclock, kvmclock
+vmstate_save fw_cfg, fw_cfg
+vmstate_save 0000:00:00.0/mch, mch
+vmstate_save PCIHost, PCIHost
+vmstate_save PCIBUS, PCIBUS
+vmstate_save dma, dma
+vmstate_save dma, dma
+vmstate_save mc146818rtc, mc146818rtc
+vmstate_save 0000:00:1f.0/ICH9LPC, ICH9LPC
+vmstate_save i8259, i8259
+vmstate_save i8259, i8259
+vmstate_save ioapic, ioapic
+vmstate_save hpet, hpet
+vmstate_save i8254, i8254
+vmstate_save pcspk, pcspk
+vmstate_save serial, serial
+vmstate_save ps2kbd, ps2kbd
+vmstate_save ps2mouse, ps2mouse
+vmstate_save pckbd, pckbd
+vmstate_save vmmouse, vmmouse
+vmstate_save port92, port92
+vmstate_save 0000:00:1f.2/ich9_ahci, ich9_ahci
+vmstate_save i2c_bus, i2c_bus
+vmstate_save 0000:00:1f.3/ich9_smb, ich9_smb
+vmstate_save 0000:00:05.0/xhci, xhci
+vmstate_save 0000:00:05.0/1/usb-host, usb-host
+vmstate_save acpi_build, acpi_build
+vmstate_save globalstate, globalstate
+migrate_set_state new state completed
+usb_host_req_complete dev 3:83, packet 0x7d0fe830c628, status -1, length 0
+usb_host_release_interface dev 3:83, if 0
+usb_host_attach_kernel dev 3:83, if 0
+usb_host_attach_kernel dev 3:83, if 1
+usb_host_attach_kernel dev 3:83, if 2
+usb_host_attach_kernel dev 3:83, if 3
+usb_host_attach_kernel dev 3:83, if 4
+usb_host_attach_kernel dev 3:83, if 5
+usb_host_attach_kernel dev 3:83, if 6
+usb_host_attach_kernel dev 3:83, if 7
+usb_host_attach_kernel dev 3:83, if 8
+usb_host_attach_kernel dev 3:83, if 9
+usb_host_attach_kernel dev 3:83, if 10
+usb_host_attach_kernel dev 3:83, if 11
+usb_host_attach_kernel dev 3:83, if 12
+usb_host_attach_kernel dev 3:83, if 13
+usb_host_attach_kernel dev 3:83, if 14
+usb_host_attach_kernel dev 3:83, if 15
+
+=== QEMU / libusb 诊断 ===
+
+=== guest 内核与 USB 枚举 ===
+[    0.000000] Linux version 6.18.57 (nixbld@localhost) (gcc (GCC) 15.3.0, GNU ld (GNU Binutils) 2.46) #1-NixOS SMP PREEMPT_DYNAMIC Thu Oct 15 09:58:20 UTC 2026
+[    0.000000] Command line: console=ttyS0,115200 panic=-1 rdinit=/init nokaslr
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000000ffdefff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000ffdf000-0x000000000fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000b0000000-0x00000000bfffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fed1c000-0x00000000fed1ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000feffc000-0x00000000feffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] APIC: Static calls initialized
+[    0.000000] SMBIOS 2.8 present.
+[    0.000000] DMI: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[    0.000000] DMI: Memory slots populated: 1/1
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] last_pfn = 0xffdf max_arch_pfn = 0x400000000
+[    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+[    0.000001] kvm-clock: using sched offset of 375714323 cycles
+[    0.000003] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000008] tsc: Detected 2496.000 MHz processor
+[    0.000274] last_pfn = 0xffdf max_arch_pfn = 0x400000000
+[    0.000316] MTRR map: 4 entries (3 fixed + 1 variable; max 19), built from 8 variable MTRRs
+[    0.000320] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.006403] found SMP MP-table at [mem 0x000f54c0-0x000f54cf]
+[    0.006422] Using GB pages for direct mapping
+[    0.006668] RAMDISK: [mem 0x0ee05000-0x0ffcffff]
+[    0.006672] ACPI: Early table checksum verification disabled
+[    0.006676] ACPI: RSDP 0x00000000000F52E0 000014 (v00 BOCHS )
+[    0.006686] ACPI: RSDT 0x000000000FFE22E5 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006693] ACPI: FACP 0x000000000FFE20DD 0000F4 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006701] ACPI: DSDT 0x000000000FFE0040 00209D (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006706] ACPI: FACS 0x000000000FFE0000 000040
+[    0.006709] ACPI: APIC 0x000000000FFE21D1 000078 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006713] ACPI: HPET 0x000000000FFE2249 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006717] ACPI: MCFG 0x000000000FFE2281 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006721] ACPI: WAET 0x000000000FFE22BD 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.006724] ACPI: Reserving FACP table memory at [mem 0xffe20dd-0xffe21d0]
+[    0.006726] ACPI: Reserving DSDT table memory at [mem 0xffe0040-0xffe20dc]
+[    0.006727] ACPI: Reserving FACS table memory at [mem 0xffe0000-0xffe003f]
+[    0.006728] ACPI: Reserving APIC table memory at [mem 0xffe21d1-0xffe2248]
+[    0.006729] ACPI: Reserving HPET table memory at [mem 0xffe2249-0xffe2280]
+[    0.006730] ACPI: Reserving MCFG table memory at [mem 0xffe2281-0xffe22bc]
+[    0.006731] ACPI: Reserving WAET table memory at [mem 0xffe22bd-0xffe22e4]
+[    0.007094] No NUMA configuration found
+[    0.007094] Faking a node at [mem 0x0000000000000000-0x000000000ffdefff]
+[    0.007098] NODE_DATA(0) allocated [mem 0x0ffd9780-0x0ffdecff]
+[    0.007119] Zone ranges:
+[    0.007120]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.007123]   DMA32    [mem 0x0000000001000000-0x000000000ffdefff]
+[    0.007124]   Normal   empty
+[    0.007125]   Device   empty
+[    0.007126] Movable zone start for each node
+[    0.007127] Early memory node ranges
+[    0.007128]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.007129]   node   0: [mem 0x0000000000100000-0x000000000ffdefff]
+[    0.007131] Initmem setup node 0 [mem 0x0000000000001000-0x000000000ffdefff]
+[    0.007439] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.007463] On node 0, zone DMA: 97 pages in unavailable ranges
+[    0.007990] On node 0, zone DMA32: 33 pages in unavailable ranges
+[    0.008355] ACPI: PM-Timer IO Port: 0x608
+[    0.008370] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.008414] IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+[    0.008418] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.008421] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.008422] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.008423] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.008425] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.008429] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.008430] ACPI: HPET id: 0x8086a201 base: 0xfed00000
+[    0.008434] TSC deadline timer available
+[    0.008438] CPU topo: Max. logical packages:   1
+[    0.008439] CPU topo: Max. logical dies:       1
+[    0.008440] CPU topo: Max. dies per package:   1
+[    0.008443] CPU topo: Max. threads per core:   1
+[    0.008444] CPU topo: Num. cores per package:     1
+[    0.008445] CPU topo: Num. threads per package:   1
+[    0.008445] CPU topo: Allowing 1 present CPUs plus 0 hotplug CPUs
+[    0.008466] kvm-guest: APIC: eoi() replaced with kvm_guest_apic_eoi_write()
+[    0.008495] PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+[    0.008497] PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x000fffff]
+[    0.008499] [mem 0x10000000-0xafffffff] available for PCI devices
+[    0.008501] Booting paravirtualized kernel on KVM
+[    0.008504] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.016599] setup_percpu: NR_CPUS:384 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+[    0.017037] percpu: Embedded 98 pages/cpu s278528 r8192 d114688 u2097152
+[    0.017085] kvm-guest: PV spinlocks disabled, single CPU
+[    0.017087] Kernel command line: console=ttyS0,115200 panic=-1 rdinit=/init nokaslr
+[    0.017141] Unknown kernel command line parameters "nokaslr", will be passed to user space.
+[    0.017154] random: crng init done
+[    0.017155] printk: log buffer data + meta data: 262144 + 917504 = 1179648 bytes
+[    0.017172] Dentry cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.017183] Inode-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.017233] Fallback order for Node 0: 0 
+[    0.017237] Built 1 zonelists, mobility grouping on.  Total pages: 65405
+[    0.017238] Policy zone: DMA32
+[    0.017632] mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[    0.019353] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.019423] allocated 524288 bytes of page_ext
+[    0.027912] ftrace: allocating 48753 entries in 192 pages
+[    0.027914] ftrace: allocated 192 pages with 2 groups
+[    0.028482] Dynamic Preempt: lazy
+[    0.028552] rcu: Preemptible hierarchical RCU implementation.
+[    0.028552] rcu: 	RCU event tracing is enabled.
+[    0.028553] rcu: 	RCU restricting CPUs from NR_CPUS=384 to nr_cpu_ids=1.
+[    0.028555] 	Trampoline variant of Tasks RCU enabled.
+[    0.028556] 	Rude variant of Tasks RCU enabled.
+[    0.028556] 	Tracing variant of Tasks RCU enabled.
+[    0.028557] rcu: RCU calculated value of scheduler-enlistment delay is 100 jiffies.
+[    0.028558] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.028572] RCU Tasks: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.028575] RCU Tasks Rude: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.028577] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.034768] NR_IRQS: 24832, nr_irqs: 256, preallocated irqs: 16
+[    0.035009] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.035017] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.035134] kfence: initialized - using 2097152 bytes for 255 objects at 0x(____ptrval____)-0x(____ptrval____)
+[    0.035277] Console: colour *CGA 80x25
+[    0.035326] printk: legacy console [ttyS0] enabled
+[    0.130277] ACPI: Core revision 20250807
+[    0.130957] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604467 ns
+[    0.132228] APIC: Switch to symmetric I/O mode setup
+[    0.133124] x2apic enabled
+[    0.133816] APIC: Switched APIC routing to: physical x2apic
+[    0.135656] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.136472] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x23fa772cf26, max_idle_ns: 440795269835 ns
+[    0.137828] Calibrating delay loop (skipped) preset value.. 4992.00 BogoMIPS (lpj=2496000)
+[    0.138983] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+[    0.139913] CET detected: Indirect Branch Tracking enabled
+[    0.140827] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[    0.141826] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[    0.142581] mitigations: Enabled attack vectors: user_kernel, user_user, guest_host, guest_guest, SMT mitigations: auto
+[    0.142827] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+[    0.143827] Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+[    0.144826] Register File Data Sampling: Mitigation: Clear Register File
+[    0.145826] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.146829] Spectre V2 : Spectre v2 / PBRSB-eIBRS: Retire a single CALL on VMEXIT
+[    0.147830] Spectre V2 : Enabling IBPB for BPF
+[    0.148415] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.148851] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.149826] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.150826] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.151826] x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+[    0.152826] x86/fpu: Supporting XSAVE feature 0x800: 'Control-flow User registers'
+[    0.153826] x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+[    0.154826] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.155826] x86/fpu: xstate_offset[9]:  832, xstate_sizes[9]:    8
+[    0.156826] x86/fpu: xstate_offset[11]:  840, xstate_sizes[11]:   16
+[    0.157577] x86/fpu: xstate_offset[12]:  856, xstate_sizes[12]:   24
+[    0.157826] x86/fpu: Enabled xstate features 0x1a07, context size is 880 bytes, using 'compacted' format.
+[    0.187216] Freeing SMP alternatives memory: 44K
+[    0.187828] pid_max: default: 32768 minimum: 301
+[    0.188439] LSM: initializing lsm=capability,landlock,yama,selinux,ipe,bpf,ima
+[    0.188908] landlock: Up and running.
+[    0.189826] Yama: becoming mindful.
+[    0.190244] SELinux:  Initializing.
+[    0.191023] LSM support for eBPF active
+[    0.191519] Mount-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.191826] Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.193204] smpboot: CPU0: 12th Gen Intel(R) Core(TM) i7-1260P (family: 0x6, model: 0x9a, stepping: 0x3)
+[    0.194009] Performance Events: unsupported CPU family 6 model 154 no PMU driver, software events only.
+[    0.194845] signal: max sigframe size: 3632
+[    0.195385] rcu: Hierarchical SRCU implementation.
+[    0.195832] rcu: 	Max phase no-delay instances is 400.
+[    0.196761] NMI watchdog: Perf NMI watchdog permanently disabled
+[    0.196859] smp: Bringing up secondary CPUs ...
+[    0.197418] smp: Brought up 1 node, 1 CPU
+[    0.197835] smpboot: Total of 1 processors activated (4992.00 BogoMIPS)
+[    0.198772] Memory: 183452K/261620K available (17174K kernel code, 2723K rwdata, 13612K rodata, 3656K init, 2976K bss, 73284K reserved, 0K cma-reserved)
+[    0.198939] devtmpfs: initialized
+[    0.199435] x86/mm: Memory block size: 128MB
+[    0.200123] posixtimers hash table entries: 512 (order: 1, 8192 bytes, linear)
+[    0.200838] futex hash table entries: 256 (16384 bytes on 1 NUMA nodes, total 16 KiB, linear).
+[    0.201889] pinctrl core: initialized pinctrl subsystem
+[    0.202682] PM: RTC time: 23:32:35, date: 2026-11-27
+[    0.203594] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.203926] DMA: preallocated 128 KiB GFP_KERNEL pool for atomic allocations
+[    0.204800] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.204836] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.205835] audit: initializing netlink subsys (disabled)
+[    0.206633] thermal_sys: Registered thermal governor 'fair_share'
+[    0.206635] thermal_sys: Registered thermal governor 'bang_bang'
+[    0.206829] audit: type=2000 audit(1795822356.346:1): state=initialized audit_enabled=0 res=1
+[    0.207830] thermal_sys: Registered thermal governor 'step_wise'
+[    0.207831] thermal_sys: Registered thermal governor 'user_space'
+[    0.208555] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.208849] cpuidle: using governor menu
+[    0.209880] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+[    0.210806] PCI: ECAM [mem 0xb0000000-0xbfffffff] (base 0xb0000000) for domain 0000 [bus 00-ff]
+[    0.210829] PCI: ECAM [mem 0xb0000000-0xbfffffff] reserved as E820 entry
+[    0.211651] PCI: Using configuration type 1 for base access
+[    0.211923] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[    0.216875] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.217706] HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page
+[    0.217828] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.218649] HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+[    0.228021] ACPI: Added _OSI(Module Device)
+[    0.228555] ACPI: Added _OSI(Processor Device)
+[    0.228828] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.234813] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    0.240067] ACPI: Interpreter enabled
+[    0.240541] ACPI: PM: (supports S0 S3 S4 S5)
+[    0.240828] ACPI: Using IOAPIC for interrupt routing
+[    0.241482] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.245828] PCI: Using E820 reservations for host bridge windows
+[    0.246705] ACPI: Enabled 2 GPEs in block 00 to 3F
+[    0.251821] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.252576] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+[    0.254879] acpi PNP0A08:00: _OSC: platform does not support [PCIeHotplug LTR]
+[    0.255847] acpi PNP0A08:00: _OSC: OS now controls [PME AER PCIeCapability]
+[    0.258831] PCI host bridge to bus 0000:00
+[    0.259344] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    0.259828] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    0.260661] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    0.262828] pci_bus 0000:00: root bus resource [mem 0x10000000-0xafffffff window]
+[    0.263714] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+[    0.263828] pci_bus 0000:00: root bus resource [mem 0x100000000-0x8ffffffff window]
+[    0.264774] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.266907] pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000 conventional PCI endpoint
+[    0.268406] pci 0000:00:05.0: [1b36:000d] type 00 class 0x0c0330 PCIe Root Complex Integrated Endpoint
+[    0.271449] pci 0000:00:05.0: BAR 0 [mem 0xfebf8000-0xfebfbfff 64bit]
+[    0.271909] pci 0000:00:05.0: enabling Extended Tags
+[    0.275196] pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100 conventional PCI endpoint
+[    0.276181] pci 0000:00:1f.0: quirk: [io  0x0600-0x067f] claimed by ICH6 ACPI/GPIO/TCO
+[    0.279094] pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601 conventional PCI endpoint
+[    0.280714] pci 0000:00:1f.2: BAR 4 [io  0xc040-0xc05f]
+[    0.282837] pci 0000:00:1f.2: BAR 5 [mem 0xfebfc000-0xfebfcfff]
+[    0.283928] pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500 conventional PCI endpoint
+[    0.287460] pci 0000:00:1f.3: BAR 4 [io  0x0700-0x073f]
+[    0.290957] ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+[    0.291792] ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+[    0.291899] ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+[    0.292701] ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+[    0.294912] ACPI: PCI: Interrupt link LNKE configured for IRQ 10
+[    0.295703] ACPI: PCI: Interrupt link LNKF configured for IRQ 10
+[    0.295899] ACPI: PCI: Interrupt link LNKG configured for IRQ 11
+[    0.296711] ACPI: PCI: Interrupt link LNKH configured for IRQ 11
+[    0.297638] ACPI: PCI: Interrupt link GSIA configured for IRQ 16
+[    0.297835] ACPI: PCI: Interrupt link GSIB configured for IRQ 17
+[    0.298596] ACPI: PCI: Interrupt link GSIC configured for IRQ 18
+[    0.298834] ACPI: PCI: Interrupt link GSID configured for IRQ 19
+[    0.299569] ACPI: PCI: Interrupt link GSIE configured for IRQ 20
+[    0.299835] ACPI: PCI: Interrupt link GSIF configured for IRQ 21
+[    0.300570] ACPI: PCI: Interrupt link GSIG configured for IRQ 22
+[    0.300834] ACPI: PCI: Interrupt link GSIH configured for IRQ 23
+[    0.301853] iommu: Default domain type: Translated
+[    0.302435] iommu: DMA domain TLB invalidation policy: lazy mode
+[    0.302894] ACPI: bus type USB registered
+[    0.303425] usbcore: registered new interface driver usbfs
+[    0.303833] usbcore: registered new interface driver hub
+[    0.304497] usbcore: registered new device driver usb
+[    0.305125] NetLabel: Initializing
+[    0.305545] NetLabel:  domain hash size = 128
+[    0.305833] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.306558] NetLabel:  unlabeled traffic allowed by default
+[    0.306831] PCI: Using ACPI for IRQ routing
+[    0.366885] vgaarb: loaded
+[    0.367278] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+[    0.367827] hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+[    0.370857] clocksource: Switched to clocksource kvm-clock
+[    0.371723] VFS: Disk quotas dquot_6.6.0
+[    0.372781] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.373863] pnp: PnP ACPI init
+[    0.374374] ACPI: IRQ 4 override to edge(!), high(!)
+[    0.375120] system 00:03: [mem 0xb0000000-0xbfffffff window] has been reserved
+[    0.376388] pnp: PnP ACPI: found 4 devices
+[    0.383062] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[    0.384330] NET: Registered PF_INET protocol family
+[    0.385021] IP idents hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    0.399507] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.400647] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.401605] TCP established hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[    0.402558] TCP bind hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    0.403431] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.404233] MPTCP token hash table entries: 256 (order: 1, 6144 bytes, linear)
+[    0.405127] UDP hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    0.405945] UDP-Lite hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    0.406873] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.407587] NET: Registered PF_XDP protocol family
+[    0.408247] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+[    0.409007] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+[    0.409757] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+[    0.410573] pci_bus 0000:00: resource 7 [mem 0x10000000-0xafffffff window]
+[    0.411441] pci_bus 0000:00: resource 8 [mem 0xc0000000-0xfebfffff window]
+[    0.412285] pci_bus 0000:00: resource 9 [mem 0x100000000-0x8ffffffff window]
+[    0.413417] ACPI: \_SB_.GSIF: Enabled at IRQ 21
+[    0.414505] PCI: CLS 0 bytes, default 64
+[    0.415089] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x23fa772cf26, max_idle_ns: 440795269835 ns
+[    0.416367] Trying to unpack rootfs image as initramfs...
+[    0.463479] Initialise system trusted keyrings
+[    0.466833] workingset: timestamp_bits=40 max_order=16 bucket_order=0
+[    0.488291] Key type asymmetric registered
+[    0.490820] Asymmetric key parser 'x509' registered
+[    0.491443] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[    0.493837] io scheduler mq-deadline registered
+[    0.494398] io scheduler kyber registered
+[    0.497083] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.498034] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    0.501237] Linux agpgart interface v0.103
+[    0.501833] ACPI: bus type drm_connector registered
+[    0.503896] usbcore: registered new interface driver usbserial_generic
+[    0.504721] usbserial: USB Serial support registered for generic
+[    0.505453] intel_pstate: CPU model not supported
+[    0.507870] drop_monitor: Initializing network drop monitor service
+[    0.508777] NET: Registered PF_INET6 protocol family
+[    0.512008] Segment Routing with IPv6
+[    0.512482] In-situ OAM (IOAM) with IPv6
+[    0.515971] IPI shorthand broadcast: enabled
+[    0.520386] sched_clock: Marking stable (421002547, 98808302)->(548380266, -28569417)
+[    0.522890] registered taskstats version 1
+[    0.523516] Loading compiled-in X.509 certificates
+[    0.534824] Demotion targets for Node 0: null
+[    0.535451] Key type .fscrypt registered
+[    0.535952] Key type fscrypt-provisioning registered
+[    0.536610] ima: No TPM chip found, activating TPM-bypass!
+[    0.537358] ima: Allocated hash algorithm: sha1
+[    0.539829] ima: No architecture policies found
+[    0.541827] PM:   Magic number: 2:979:555
+[    0.542419] acpi PNP0C0F:06: hash matches
+[    0.546253] RAS: Correctable Errors collector initialized.
+[    0.558735] clk: Disabling unused clocks
+[    0.560821] PM: genpd: Disabling unused power domains
+[    0.808804] Freeing initrd memory: 18220K
+[    0.828700] Freeing unused decrypted memory: 2028K
+[    0.829798] Freeing unused kernel image (initmem) memory: 3656K
+[    0.830367] Write protecting the kernel read-only data: 32768k
+[    0.831387] Freeing unused kernel image (text/rodata gap) memory: 1256K
+[    0.832257] Freeing unused kernel image (rodata/data gap) memory: 724K
+[    0.843816] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+[    0.844411] Run /init as init process
+[    0.866253] xhci_hcd 0000:00:05.0: xHCI Host Controller
+[    0.866791] xhci_hcd 0000:00:05.0: new USB bus registered, assigned bus number 1
+[    0.870000] xhci_hcd 0000:00:05.0: hcc params 0x00087001 hci version 0x100 quirks 0x0000000000000010
+[    0.871567] xhci_hcd 0000:00:05.0: xHCI Host Controller
+[    0.872169] xhci_hcd 0000:00:05.0: new USB bus registered, assigned bus number 2
+[    0.873019] xhci_hcd 0000:00:05.0: Host supports USB 3.0 SuperSpeed
+[    0.873842] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.18
+[    0.874736] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    0.875487] usb usb1: Product: xHCI Host Controller
+[    0.876035] usb usb1: Manufacturer: Linux 6.18.57 xhci-hcd
+[    0.876688] usb usb1: SerialNumber: 0000:00:05.0
+[    0.877320] hub 1-0:1.0: USB hub found
+[    0.877804] hub 1-0:1.0: 4 ports detected
+[    0.878519] usb usb2: We don't know the algorithms for LPM for this host, disabling LPM.
+[    0.879420] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.18
+[    0.880306] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    0.881082] usb usb2: Product: xHCI Host Controller
+[    0.881598] usb usb2: Manufacturer: Linux 6.18.57 xhci-hcd
+[    0.882233] usb usb2: SerialNumber: 0000:00:05.0
+[    0.882872] hub 2-0:1.0: USB hub found
+[    0.883315] hub 2-0:1.0: 4 ports detected
+[    0.895579] hid: raw HID events driver (C) Jiri Kosina
+[    0.900242] usbcore: registered new interface driver usbhid
+[    0.900788] usbhid: USB HID core driver
+[    0.917834] SCSI subsystem initialized
+[    0.922314] usbcore: registered new interface driver usb-storage
+[    0.925908] usbcore: registered new interface driver uas
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=0
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=0 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=0 vid=1d6b pid=0003 devnum=1 config=1
+[    1.283878] usb 1-1: new full-speed USB device number 2 using xhci_hcd
+[    1.416889] usb 1-1: New USB device found, idVendor=2717, idProduct=5013, bcdDevice= 1.00
+[    1.419016] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    1.420909] usb 1-1: Product: Mi Wireless Mouse
+[    1.421970] usb 1-1: Manufacturer: XiaoMi
+[    1.426097] input: XiaoMi Mi Wireless Mouse as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0001/input/input0
+[    1.427762] input: XiaoMi Mi Wireless Mouse Consumer Control as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0001/input/input1
+[    1.479971] input: XiaoMi Mi Wireless Mouse System Control as /devices/pci0000:00/0000:00:05.0/usb1/1-1/1-1:1.0/0003:2717:5013.0001/input/input2
+[    1.483310] hid-generic 0003:2717:5013.0001: input,hidraw0: USB HID v1.11 Mouse [XiaoMi Mi Wireless Mouse] on usb-0000:00:05.0-1/input0
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=1 vid=2717 pid=5013 devnum=2 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=1 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=1 vid=1d6b pid=0003 devnum=1 config=1
+EXPERIMENT_HEARTBEAT boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=2
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=2 vid=2717 pid=5013 devnum=2 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=2 vid=1d6b pid=0002 devnum=1 config=1
+EXPERIMENT_USB boot=ac4d3fab-23c0-4140-a8d7-8689cd00a127 seq=2 vid=1d6b pid=0003 devnum=1 config=1

@@ -1,0 +1,4 @@
+[submodule "source/qemu-usb-11.1.3"]
+	path = source/qemu-usb-11.1.3
+	url = https://github.com/ziyifu225/qemu.git
+	branch = master-thesis

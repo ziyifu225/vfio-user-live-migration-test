@@ -1,0 +1,8 @@
+实验结果：PASS
+虚拟机迁移：成功
+物理 USB 重新枚举：成功
+source 迁移后状态：postmigrate
+destination 迁移后状态：running
+source 日志：/home/zfu/Documents/vfio-user-live-migration-test/experiments/qemu-physical-device/results/20261128-003235-3r9emt9m/source.log
+destination 日志：/home/zfu/Documents/vfio-user-live-migration-test/experiments/qemu-physical-device/results/20261128-003235-3r9emt9m/destination.log
+迁移操作顺序：/home/zfu/Documents/vfio-user-live-migration-test/experiments/qemu-physical-device/results/20261128-003235-3r9emt9m/migration.log
